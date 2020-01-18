@@ -8,7 +8,7 @@ function loadWidget(waifuPath, apiPath) {
 	sessionStorage.removeItem("waifu-text");
 	document.body.insertAdjacentHTML("beforeend", `<div id="waifu">
 			<div id="waifu-tips"></div>
-			<canvas id="live2d" width="300" height="300"></canvas>
+			<canvas id="live2d" width="270" height="270"></canvas>
 			<div id="waifu-tool">
 				<span class="fa fa-lg fa-comment"></span>
 				<span class="fa fa-lg fa-paper-plane"></span>
@@ -151,7 +151,7 @@ function loadWidget(waifuPath, apiPath) {
 			modelTexturesId = localStorage.getItem("modelTexturesId");
 		if (modelId == null) {
 			// 首次访问加载 指定模型 的 指定材质
-			var modelId = 1, // 模型 ID
+			var modelId = 2, // 模型 ID
 				modelTexturesId = 53; // 材质 ID
 		}
 		loadModel(modelId, modelTexturesId);
