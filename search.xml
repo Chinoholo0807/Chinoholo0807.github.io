@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>测试文章</title>
+    <url>/2020/01/17/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/</url>
+    <content><![CDATA[<p>用于练习markdown语法与相关操作</p>
+<a id="more"></a>
+<h2 id="0-让文字显示摘要"><a href="#0-让文字显示摘要" class="headerlink" title="0.让文字显示摘要"></a>0.让文字显示摘要</h2><p>在MD格式文章正文插入&lt;!-- more --&gt;即可，这样只会显示之前的内容</p>
+<h2 id="1-标题控制"><a href="#1-标题控制" class="headerlink" title="1.标题控制"></a>1.标题控制</h2><p>利用#号控制标题</p>
+<p>1.#一级标题</p>
+<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><p>2.##二级标题  </p>
+<h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><p>3.###三级标题  </p>
+<h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><p>4.####四级标题  </p>
+<h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><p>5.#####五级标题  </p>
+<h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><p>6.######六级标题</p>
+<h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h2 id="2-段落分行"><a href="#2-段落分行" class="headerlink" title="2.段落分行"></a>2.段落分行</h2><p>只需要在两个段落间加一个空行，即回车两次</p>
+<h2 id="3-区块引用"><a href="#3-区块引用" class="headerlink" title="3.区块引用"></a>3.区块引用</h2><blockquote>
+<p>在引用的区块前加’&gt;’即可</p>
+</blockquote>
+<h2 id="4-超链接"><a href="#4-超链接" class="headerlink" title="4.超链接"></a>4.超链接</h2><p>[超链接显示文字](<a href="http://www.baidu.com" target="_blank" rel="noopener">http://www.baidu.com</a> “超链接title”)</p>
+<p><a href="http://www.baidu.com" target="_blank" rel="noopener" title="超链接title">超链接显示文字</a></p>
+<p>其中超链接title为浮动提示文字，懒狗不写</p>
+<h2 id="5-图片显示"><a href="#5-图片显示" class="headerlink" title="5.图片显示"></a>5.图片显示</h2><p>![百度logo](<a href="https://www.baidu.com/img/bd_logo1.png?where=super" target="_blank" rel="noopener">https://www.baidu.com/img/bd_logo1.png?where=super</a>)</p>
+<p><img src="https://www.baidu.com/img/bd_logo1.png?where=super" alt="百度logo"></p>
+<h2 id="6-无序列表"><a href="#6-无序列表" class="headerlink" title="6.无序列表"></a>6.无序列表</h2><p>无序列表使用<em>、+、-标识，但是一般使用</em>来标识无序列表</p>
+<p>* 无序列表</p>
+<p>+ 无序列表</p>
+<p>- 无序列表</p>
+<p>显示</p>
+<ul>
+<li>无序列表</li>
+</ul>
+<ul>
+<li>无序列表</li>
+</ul>
+<ul>
+<li>无序列表<h2 id="7-有序列表"><a href="#7-有序列表" class="headerlink" title="7.有序列表"></a>7.有序列表</h2>用数字 + ‘.’ 标识</li>
+</ul>
+<p>1.有序列表1</p>
+<p>   1.有序列表2</p>
+<p>2.有序列表3</p>
+<p>显示为</p>
+<ol>
+<li>有序列表1<ol>
+<li>有序列表2</li>
+</ol>
+</li>
+<li>有序列表3    </li>
+</ol>
+<h2 id="8-分隔线"><a href="#8-分隔线" class="headerlink" title="8.分隔线"></a>8.分隔线</h2><p>***</p>
+<p>显示如下</p>
+<hr>
+<h2 id="9-字体修改"><a href="#9-字体修改" class="headerlink" title="9.字体修改"></a>9.字体修改</h2><p>*斜体*</p>
+<p><em>斜体</em></p>
+<p>**加粗**</p>
+<p><strong>加粗</strong></p>
+<p>***斜体加粗***</p>
+<p><strong><em>斜体加粗</em></strong></p>
+<h2 id="10-代码块"><a href="#10-代码块" class="headerlink" title="10.代码块"></a>10.代码块</h2><p>利用单个反引号`（在esc下面） 包裹代码</p>
+<p>`int a=1 `</p>
+<p><code>int a=1</code></p>
+<p>处理多行代码是通过三个反引号包裹代码</p>
+<p>```</p>
+<p> int a=1;</p>
+<p> int b=2;</p>
+<p> int c=3;</p>
+<p>```</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">int a&#x3D;1;</span><br><span class="line">int b&#x3D;2;</span><br><span class="line">int c&#x3D;3;</span><br></pre></td></tr></table></figure>
+
+<h2 id="11-表格"><a href="#11-表格" class="headerlink" title="11.表格"></a>11.表格</h2><p>| a | b | c |</p>
+<p>|—|—|—|</p>
+<p>|1  |2  |3  |</p>
+<p>|4  |5  |6  |</p>
+<p>|7  |8  |9  |</p>
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+</tr>
+<tr>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+</tr>
+</tbody></table>
+]]></content>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/01/16/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<a id="more"></a>
+
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+</search>
