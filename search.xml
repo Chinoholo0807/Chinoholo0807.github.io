@@ -1,8 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>测试文章</title>
-    <url>/uncategorized/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/</url>
+    <title>c++中的new和delete</title>
+    <url>/%E7%AC%94%E8%AE%B0/c++%E4%B8%AD%E7%9A%84new%E5%92%8Cdelete/</url>
+    <content><![CDATA[<p>在c++中堆内存的分配与释放是通过new和delete来实现的，new和delete是两个操作符，无需头文件支持</p>
+<a id="more"></a>
+<h2 id="new"><a href="#new" class="headerlink" title="new"></a>new</h2><h3 id="new运算符"><a href="#new运算符" class="headerlink" title="new运算符"></a>new运算符</h3><p>new运算符返回指向所分配类型对象的指针，new运算符首先向系统堆区申请足够的储存空间，如果申请成功，则再调用相应的默认构造函数，然后返回申请空间的地址</p>
+<h3 id="new的使用方法"><a href="#new的使用方法" class="headerlink" title="new的使用方法"></a>new的使用方法</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int *p&#x3D; new int ;&#x2F;&#x2F;申请int</span><br><span class="line">int *psome&#x3D; new int[10];&#x2F;&#x2F;申请int数组</span><br><span class="line">A *q&#x3D; new A;&#x2F;&#x2F;申请自定义类型</span><br><span class="line">A *qsome&#x3D; new A[10];&#x2F;&#x2F;申请自定义类型数组</span><br></pre></td></tr></table></figure>
+<h2 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h2><h3 id="delete运算符"><a href="#delete运算符" class="headerlink" title="delete运算符"></a>delete运算符</h3><p>delete运算符首先执行默认析构函数，然后再回收分配的空间</p>
+<h3 id="delete的使用方法"><a href="#delete的使用方法" class="headerlink" title="delete的使用方法"></a>delete的使用方法</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">delete p;&#x2F;&#x2F;释放int</span><br><span class="line">delete []psome;&#x2F;&#x2F;释放int数组</span><br><span class="line">delete q;&#x2F;&#x2F;释放自定义类型</span><br><span class="line">delete []qsome;&#x2F;&#x2F;释放自定义类型数组</span><br></pre></td></tr></table></figure>
+<h3 id="关于delete-ptr和delete-ptr的差别"><a href="#关于delete-ptr和delete-ptr的差别" class="headerlink" title="关于delete ptr和delete []ptr的差别"></a>关于delete ptr和delete []ptr的差别</h3><p>回归到new和delete上，当我们调用operator new[]/new来分配数组对象时，编译器时系统内部会增加4或者8字节的分配空间用来保存所分配的数组对象的数量,可以理解为下面这对pair<br>| 储存分配空间的字节数 | 分配空间的地址 |<br>| -|-|<br>|           4|0xabcd<br>例如分配以下空间</p>
+<p><code>A *psome =new A[10];</code></p>
+<p>此时如果使用delete psome,则只会调用一次析构函数，但是会收回所有分配的空间；而使用delete []psome，则会依次调用psome[0]-psome[9]的析构函数，然后再收回所有的分配空间</p>
+<p>例如对于下面的代码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int count&#x3D;0;</span><br><span class="line">class A&#123;</span><br><span class="line">public:</span><br><span class="line">	int i;</span><br><span class="line">	A();</span><br><span class="line">	~A(); </span><br><span class="line">&#125;; </span><br><span class="line">A::A()&#123;&#x2F;&#x2F;构造函数</span><br><span class="line">	i&#x3D;count++;</span><br><span class="line">	cout&lt;&lt;&quot;A::A() i&#x3D;&quot;&lt;&lt;i&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line">A::~A()&#123;&#x2F;&#x2F;析构函数</span><br><span class="line">	cout&lt;&lt;&quot;A::~A() i&#x3D;&quot;&lt;&lt;i&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	A *psome&#x3D; new A[10];</span><br><span class="line">	delete psome;</span><br><span class="line">	&#x2F;&#x2F;delete []psome;</span><br><span class="line">    return 0 ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行得到结果如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A::A() i&#x3D;0&#x2F;&#x2F;依次执行构造函数</span><br><span class="line">A::A() i&#x3D;1</span><br><span class="line">A::A() i&#x3D;2</span><br><span class="line">A::A() i&#x3D;3</span><br><span class="line">A::A() i&#x3D;4</span><br><span class="line">A::A() i&#x3D;5</span><br><span class="line">A::A() i&#x3D;6</span><br><span class="line">A::A() i&#x3D;7</span><br><span class="line">A::A() i&#x3D;8</span><br><span class="line">A::A() i&#x3D;9</span><br><span class="line">A::~A() i&#x3D;0&#x2F;&#x2F;只执行依次析构函数，但空间全部回收</span><br></pre></td></tr></table></figure>
+<p>可以看到只执行了依次析构函数，因为对于delete而言psome所指对象只有一个对象</p>
+<p>如果执行的是delete []psome,得到结果如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A::A() i&#x3D;0</span><br><span class="line">A::A() i&#x3D;1</span><br><span class="line">A::A() i&#x3D;2</span><br><span class="line">A::A() i&#x3D;3</span><br><span class="line">A::A() i&#x3D;4</span><br><span class="line">A::A() i&#x3D;5</span><br><span class="line">A::A() i&#x3D;6</span><br><span class="line">A::A() i&#x3D;7</span><br><span class="line">A::A() i&#x3D;8</span><br><span class="line">A::A() i&#x3D;9&#x2F;&#x2F;执行10次构造函数</span><br><span class="line">A::~A() i&#x3D;9</span><br><span class="line">A::~A() i&#x3D;8</span><br><span class="line">A::~A() i&#x3D;7</span><br><span class="line">A::~A() i&#x3D;6</span><br><span class="line">A::~A() i&#x3D;5</span><br><span class="line">A::~A() i&#x3D;4</span><br><span class="line">A::~A() i&#x3D;3</span><br><span class="line">A::~A() i&#x3D;2</span><br><span class="line">A::~A() i&#x3D;1</span><br><span class="line">A::~A() i&#x3D;0&#x2F;&#x2F;执行10次析构函数</span><br></pre></td></tr></table></figure>
+<p>可以看到执行了10次析构函数，并且是从最后一个元素开始向前执行的，此时delete知道psome所指地址有多个对象，会通过上面的pair计算要执行析构函数的次数并依次执行</p>
+<p>因此就结论而言，new/delete 、new []/delete[] 最好要配对使用</p>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><p>1.不要使用delete去释放没有new的内存</p>
+<p>2.不要重复delete</p>
+<p>3.delete[]和new[]配套使用 ，delete和new配套使用</p>
+<p>4.delete空指针是安全的（体现完备性）</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>c++，语法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>markdown基本语法</title>
+    <url>/%E7%AC%94%E8%AE%B0/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/</url>
     <content><![CDATA[<p>用于练习markdown语法与相关操作</p>
 <a id="more"></a>
 <h2 id="0-让文字显示摘要"><a href="#0-让文字显示摘要" class="headerlink" title="0.让文字显示摘要"></a>0.让文字显示摘要</h2><p>在MD格式文章正文插入&lt;!-- more --&gt;即可，这样只会显示之前的内容</p>
@@ -97,13 +130,16 @@
 </tr>
 </tbody></table>
 ]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
       <tags>
-        <tag>随笔</tag>
+        <tag>markdown，语法</tag>
       </tags>
   </entry>
   <entry>
     <title>Hello World</title>
-    <url>/uncategorized/hello-world/</url>
+    <url>/%E9%9A%8F%E7%AC%94/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <a id="more"></a>
 
@@ -120,8 +156,11 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
       <tags>
-        <tag>随笔</tag>
+        <tag>Hello World</tag>
       </tags>
   </entry>
 </search>
