@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="海物的博客">
 <meta property="og:description" content="在c++中堆内存的分配与释放是通过new和delete来实现的，new和delete是两个操作符，无需头文件支持">
 <meta property="article:published_time" content="2020-01-30T06:44:56.000Z">
-<meta property="article:modified_time" content="2020-01-30T07:51:47.663Z">
+<meta property="article:modified_time" content="2020-01-31T08:09:39.487Z">
 <meta property="article:author" content="海物">
 <meta property="article:tag" content="c++">
 <meta property="article:tag" content="语法">
@@ -408,9 +408,9 @@
       
         <p>在c++中堆内存的分配与释放是通过new和delete来实现的，new和delete是两个操作符，无需头文件支持</p>
 <a id="more"></a>
-<h2 id="new"><a href="#new" class="headerlink" title="new"></a>new</h2><h3 id="new运算符"><a href="#new运算符" class="headerlink" title="new运算符"></a>new运算符</h3><p>new运算符返回指向所分配类型对象的指针，new运算符首先向系统堆区申请足够的储存空间，如果申请成功，则再调用相应的默认构造函数，然后返回申请空间的地址</p>
+<h2 id="new"><a href="#new" class="headerlink" title="new"></a>new</h2><h3 id="new运算符"><a href="#new运算符" class="headerlink" title="new运算符"></a>new运算符</h3><p>new运算符返回指向所分配类型对象的指针，new运算符首先<strong>向系统堆区申请足够的储存空间</strong>，如果申请成功，则再<strong>调用相应的默认构造函数</strong>，然后返回申请空间的地址</p>
 <h3 id="new的使用方法"><a href="#new的使用方法" class="headerlink" title="new的使用方法"></a>new的使用方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int *p&#x3D; new int ;&#x2F;&#x2F;申请int</span><br><span class="line">int *psome&#x3D; new int[10];&#x2F;&#x2F;申请int数组</span><br><span class="line">A *q&#x3D; new A;&#x2F;&#x2F;申请自定义类型</span><br><span class="line">A *qsome&#x3D; new A[10];&#x2F;&#x2F;申请自定义类型数组</span><br></pre></td></tr></table></figure>
-<h2 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h2><h3 id="delete运算符"><a href="#delete运算符" class="headerlink" title="delete运算符"></a>delete运算符</h3><p>delete运算符首先执行默认析构函数，然后再回收分配的空间</p>
+<h2 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h2><h3 id="delete运算符"><a href="#delete运算符" class="headerlink" title="delete运算符"></a>delete运算符</h3><p>delete运算符首先<strong>执行默认析构函数</strong>，然后再<strong>回收分配的空间</strong></p>
 <h3 id="delete的使用方法"><a href="#delete的使用方法" class="headerlink" title="delete的使用方法"></a>delete的使用方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">delete p;&#x2F;&#x2F;释放int</span><br><span class="line">delete []psome;&#x2F;&#x2F;释放int数组</span><br><span class="line">delete q;&#x2F;&#x2F;释放自定义类型</span><br><span class="line">delete []qsome;&#x2F;&#x2F;释放自定义类型数组</span><br></pre></td></tr></table></figure>
 <h3 id="关于delete-ptr和delete-ptr的差别"><a href="#关于delete-ptr和delete-ptr的差别" class="headerlink" title="关于delete ptr和delete []ptr的差别"></a>关于delete ptr和delete []ptr的差别</h3><p>回归到new和delete上，当我们调用operator new[]/new来分配数组对象时，编译器时系统内部会增加4或者8字节的分配空间用来保存所分配的数组对象的数量,可以理解为下面这对pair<br>| 储存分配空间的字节数 | 分配空间的地址 |<br>| -|-|<br>|           4|0xabcd<br>例如分配以下空间</p>
 <p><code>A *psome =new A[10];</code></p>
@@ -487,6 +487,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/%E7%AC%94%E8%AE%B0/%E5%86%85%E8%81%94-inline-%E5%87%BD%E6%95%B0/" rel="prev" title="内联(inline)函数">
+                内联(inline)函数 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
