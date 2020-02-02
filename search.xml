@@ -20,13 +20,17 @@
 </ol>
 <h3 id="使用inline的时机"><a href="#使用inline的时机" class="headerlink" title="使用inline的时机"></a>使用inline的时机</h3><p>代码短小（例如只有2、3行）且多次调用。</p>
 <p>若函数较大或有递归调用(Recursive functions)则不使用inline。</p>
-<h3 id="inline函数与宏函数的差异"><a href="#inline函数与宏函数的差异" class="headerlink" title="inline函数与宏函数的差异"></a>inline函数与宏函数的差异</h3><h4 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h4><ol>
+<h3 id="inline函数与宏函数的差异"><a href="#inline函数与宏函数的差异" class="headerlink" title="inline函数与宏函数的差异"></a>inline函数与宏函数的差异</h3><p>宏</p>
+<ol>
 <li><p>宏调用是通过简单文本替换来实现的，不会对参数进行类型检查。</p>
 </li>
 <li><p>宏的使用是预处理器直接对宏代码进行调用，没有参数压栈、生成相应汇编代码、返回参数等时间花费。</p>
 </li>
 <li><p>宏可能会产生意想不到的边缘效应，很容易出错，要非常小心优先级的变动。</p>
-<h4 id="内联"><a href="#内联" class="headerlink" title="内联"></a>内联</h4></li>
+</li>
+</ol>
+<p>内联</p>
+<ol>
 <li><p>inline 对编译器来说是一种请求，而不是命令。</p>
 </li>
 <li><p>C++中的内联机制既具备宏代码的效率，又增加了安全性，可以自由操作类的数据成员，而宏代码无法操作类的私有成员。</p>
