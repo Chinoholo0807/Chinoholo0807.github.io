@@ -1,7 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>对象的初始化</title>
+    <title>C++ 运算符重载</title>
+    <url>/C-C/C++%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/</url>
+    <content><![CDATA[<p>当运算符被用于类类型的对象时，C++允许我们为其指定新的含义；同时我们也能自定义类类型之间的转换规则。</p>
+<a id="more"></a>
+<h3 id="运算符重载"><a href="#运算符重载" class="headerlink" title="运算符重载"></a>运算符重载</h3><p>运算符函数与普通函数相同，唯一的区别时运算符函数的名称为关键字operator + 运算符符号，同时我们不能重载内置类型的运算符，只能重载自定义类的运算符。</p>
+<p>可以被重载的运算符包括:<br><img src="https://img2018.cnblogs.com/blog/1012444/201906/1012444-20190628140308422-348786570.png" alt="可被重载运算符"><br>而以下运算符无法重载:</p>
+<p><img src="https://img2018.cnblogs.com/blog/1012444/201906/1012444-20190628140322836-1002021228.png" alt="不可被重载运算符"></p>
+<p>运算符重载的基本格式为:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">return_value classname::operator op(argument list)</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;*..body..*&#x2F;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="重载运算符原型"><a href="#重载运算符原型" class="headerlink" title="重载运算符原型"></a>重载运算符原型</h3><p>根据不同类型的运算符，重载运算符函数的原型也不同:</p>
+<ol>
+<li>考虑该运算符是否会修改算子，如果不会则argument list为<strong>const classname &amp;</strong>,如果会argument list为<strong>classname &amp;</strong>。</li>
+<li>考虑返回类型return_value，基本上分为bool，const value 和reference三类。</li>
+</ol>
+<p>根据以上规则将运算符原型大致分为下面5类:</p>
+<ol>
+<li>算数运算符+ - * / % ^ &amp; | ~</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const T operator Op(const T &amp; l,const T &amp; r)    const;&#x2F;&#x2F;返回类型为常量，传入常量引用</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>关系运算符! &amp;&amp; || &lt; &lt;= &gt; &gt;= == !=</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bool operator Op(const T &amp; l,const T &amp; r)  const;&#x2F;&#x2F;返回类型为bool，传入常量引用</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bool operator Op(const T &amp; )  const;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>下标运算符[]</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">T &amp; operator[](int index);&#x2F;&#x2F;返回类型为引用可作为左值，传入index角标</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>递增递减运算符++ –</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class A&#123;</span><br><span class="line">public:</span><br><span class="line">    &#x2F;*...*&#x2F;</span><br><span class="line">    &#x2F;&#x2F;对于++、--运算符比较特殊，因为根据在对象前后不同效果不同</span><br><span class="line">    const A &amp; operator ++();&#x2F;&#x2F;  prefix++，即++在对象前面</span><br><span class="line">    const A  operator ++(int );&#x2F;&#x2F; postfix++，即++在对象后面，此处int仅为重载区分</span><br><span class="line">    const A &amp; operator --();&#x2F;&#x2F; prefix--</span><br><span class="line">    const A  operator --(int );&#x2F;&#x2F; postfix--</span><br><span class="line">    &#x2F;*...*&#x2F;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;   </span><br><span class="line"></span><br><span class="line">5. （复合）赋值运算符&#x3D;、+&#x3D; 、-&#x3D; ...</span><br></pre></td></tr></table></figure>
+<p>T &amp; operator Op(const T &amp; )   ;//  为了与内置类型（复合）赋值运算符保持一致，返回其左侧运算对象引用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 令运算符重载函数作为类的友元函数</span><br><span class="line"></span><br><span class="line">运算符重载函数不仅可以作为类的成员函数，还可以作为全局函数，作为类的友元函数。</span><br></pre></td></tr></table></figure>
+<p>class A{<br>public:<br>    /<em>…</em>/<br>    friend const A operator+(const A &amp;l,const A &amp;r);<br>    /<em>…</em>/<br>}<br>const A operator-(const A &amp;l,const A &amp;r){<br>    /<em>…</em>/<br>}</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">一般而言有以下规则：</span><br><span class="line"></span><br><span class="line">1. 单目运算符一般重载为成员函数</span><br><span class="line">2.  &#x3D; 、[]、()、-&gt;、-&gt;*必须重载为成员函数</span><br><span class="line">3.  赋值运算符一般也重载为成员函数</span><br><span class="line">4. 其他双目运算符一般重载为非成员函数，在类内进行友元声明，在类外进行定义</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 自定义Int类</span><br></pre></td></tr></table></figure>
+<p>class Int{<br>private:<br>    int i;<br>public:<br>    Int():i(0){}<br>    Int(int j){i=j;}</p>
+<pre><code>const Int operator+(const Int &amp;)    const;
+const Int operator-(const Int &amp;)    const;
+
+Int &amp; operator=(const Int &amp;);
+Int &amp; operator+=(const Int &amp;);    
+Int &amp; operator-=(const Int &amp;);
+
+const Int&amp; operator++();
+const Int operator++(int );
+const Int&amp; operator--();
+const Int operator--(int );
+
+bool operator &lt;(const Int &amp;)    const;
+bool operator ==(const Int &amp;)    const;
+bool operator !=(const Int &amp;)    const;
+bool operator &gt;(const Int &amp;)    const;
+bool operator &gt;=(const Int &amp;)    const;
+bool operator &lt;=(const Int &amp;)    const;     </code></pre><p>};<br>const Int Int::operator+(const Int &amp;that)    const{<br>    Int tmp(i+that.i);<br>    return tmp;<br>}<br>const Int Int::operator-(const Int &amp;that)    const{<br>    Int tmp(i-that.i);<br>    return tmp;<br>}<br>Int &amp; Int::operator=(const Int &amp;that){<br>    if(this!=&amp;that){<br>        this-&gt;i=that.i;<br>    }<br>    return <em>this;<br>}<br>Int &amp; Int::operator+=(const Int &amp;that){<br>    this-&gt;i+=that.i;<br>    return *this;<br>}<br>Int &amp; Int::operator-=(const Int &amp;that){<br>    this-&gt;i+=that.i;<br>    return *this;<br>}<br>const Int&amp; Int::operator++(){<br>    *this    =</em>this+1;<br>    return <em>this;<br>}<br>const Int Int::operator++(int){<br>    Int old(</em>this);    //拷贝构造<br>    ++(<em>this);    //调用const Int&amp; Int::operator++()<br>    return old;<br>}<br>const Int&amp; Int::operator–(){<br>    *this    =</em>this-1;<br>    return <em>this;<br>}<br>const Int Int::operator–(int){<br>    Int old(</em>this);    //拷贝构造<br>    –(<em>this);    //调用const Int&amp; Int::operator–()<br>    return old;<br>}<br>bool Int::operator &lt;(const Int &amp;that)    const{<br>    if(this-&gt;i&lt;that.i)<br>        return true;<br>    return false;<br>}<br>bool Int::operator ==(const Int &amp;that)    const{<br>    if(this-&gt;i==that.i)<br>        return true;<br>    return false;<br>}<br>bool Int::operator !=(const Int &amp;that)    const{<br>    return !(</em>this==that);//只使用==和&lt;来定义其他比较符号，一方面方便修改，另一方面编译器会自动内联不影响使用效率<br>}<br>bool Int::operator &gt;(const Int &amp;that)    const{<br>    return (!(<em>this&lt;that))&amp;&amp;!(!(</em>this==that));<br>}<br>bool Int::operator &gt;=(const Int &amp;that)    const{<br>    return (!(<em>this&lt;that));<br>}<br>bool Int::operator &lt;=(const Int &amp;that)    const{<br>    return (</em>this&lt;that)||(*this==that);<br>}<br>```</p>
+]]></content>
+      <categories>
+        <category>C/C++</category>
+      </categories>
+      <tags>
+        <tag>C/C++</tag>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ 对象的初始化</title>
     <url>/C-C/%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/</url>
     <content><![CDATA[<p>C++中变量初始化包括三种方式:<strong>默认初始化</strong>、<strong>直接初始化</strong>、<strong>拷贝初始化</strong>。在C++中每个类都定义了对象被初始化的方式，<strong>构造函数</strong>的任务是初始化类的数据成员，只要类的对象被创造就会执行构造函数。</p>
 <a id="more"></a>
@@ -46,7 +116,7 @@
       </tags>
   </entry>
   <entry>
-    <title>const关键字</title>
+    <title>C++ const关键字</title>
     <url>/C-C/const%E5%85%B3%E9%94%AE%E5%AD%97/</url>
     <content><![CDATA[<p>常类型是指使用类型修饰符const说明的类型，常类型的变量或对象的值是不能被更新的。</p>
 <a id="more"></a>
@@ -89,7 +159,7 @@
       </tags>
   </entry>
   <entry>
-    <title>内联(inline)函数</title>
+    <title>C++ 内联(inline)函数</title>
     <url>/C-C/%E5%86%85%E8%81%94-inline-%E5%87%BD%E6%95%B0/</url>
     <content><![CDATA[<p>inline是C++关键字，在函数声明或定义中，函数返回类型前加上关键字inline，即可以把函数指定为内联函数。</p>
 <a id="more"></a>
@@ -139,7 +209,7 @@
       </tags>
   </entry>
   <entry>
-    <title>C++中的new和delete</title>
+    <title>C++ new和delete</title>
     <url>/C-C/c++%E4%B8%AD%E7%9A%84new%E5%92%8Cdelete/</url>
     <content><![CDATA[<p>在c++中堆内存的分配与释放是通过new和delete来实现的，new和delete是两个操作符，无需头文件支持</p>
 <a id="more"></a>
