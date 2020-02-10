@@ -5,11 +5,13 @@
     <url>/C-C/C++%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/</url>
     <content><![CDATA[<p>当运算符被用于类类型的对象时，C++允许我们为其指定新的含义；同时我们也能自定义类类型之间的转换规则。</p>
 <a id="more"></a>
+
 <h3 id="运算符重载"><a href="#运算符重载" class="headerlink" title="运算符重载"></a>运算符重载</h3><p>运算符函数与普通函数相同，唯一的区别时运算符函数的名称为关键字operator + 运算符符号，同时我们不能重载内置类型的运算符，只能重载自定义类的运算符。</p>
 <p>可以被重载的运算符包括:<br><img src="https://img2018.cnblogs.com/blog/1012444/201906/1012444-20190628140308422-348786570.png" alt="可被重载运算符"><br>而以下运算符无法重载:</p>
 <p><img src="https://img2018.cnblogs.com/blog/1012444/201906/1012444-20190628140322836-1002021228.png" alt="不可被重载运算符"></p>
 <p>运算符重载的基本格式为:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">return_value classname::operator op(argument list)</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;*..body..*&#x2F;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="重载运算符原型"><a href="#重载运算符原型" class="headerlink" title="重载运算符原型"></a>重载运算符原型</h3><p>根据不同类型的运算符，重载运算符函数的原型也不同:</p>
 <ol>
 <li>考虑该运算符是否会修改算子，如果不会则argument list为<strong>const classname &amp;</strong>,如果会argument list为<strong>classname &amp;</strong>。</li>
@@ -41,7 +43,7 @@
 <p>T &amp; operator Op(const T &amp; )   ;//  为了与内置类型（复合）赋值运算符保持一致，返回其左侧运算对象引用</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 令运算符重载函数作为类的友元函数</span><br><span class="line"></span><br><span class="line">运算符重载函数不仅可以作为类的成员函数，还可以作为全局函数，作为类的友元函数。</span><br></pre></td></tr></table></figure>
 <p>class A{<br>public:<br>    /<em>…</em>/<br>    friend const A operator+(const A &amp;l,const A &amp;r);<br>    /<em>…</em>/<br>}<br>const A operator-(const A &amp;l,const A &amp;r){<br>    /<em>…</em>/<br>}</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">一般而言有以下规则：</span><br><span class="line"></span><br><span class="line">1. 单目运算符一般重载为成员函数</span><br><span class="line">2.  &#x3D; 、[]、()、-&gt;、-&gt;*必须重载为成员函数</span><br><span class="line">3.  赋值运算符一般也重载为成员函数</span><br><span class="line">4. 其他双目运算符一般重载为非成员函数，在类内进行友元声明，在类外进行定义</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 自定义Int类</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">一般而言有以下规则：</span><br><span class="line"></span><br><span class="line">1. 单目运算符一般重载为成员函数</span><br><span class="line">2. &#x3D; 、[]、()、-&gt;、-&gt;*必须重载为成员函数</span><br><span class="line">3. 赋值运算符一般也重载为成员函数</span><br><span class="line">4. 其他双目运算符一般重载为非成员函数，在类内进行友元声明，在类外进行定义</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 自定义Int类</span><br></pre></td></tr></table></figure>
 <p>class Int{<br>private:<br>    int i;<br>public:<br>    Int():i(0){}<br>    Int(int j){i=j;}</p>
 <pre><code>const Int operator+(const Int &amp;)    const;
 const Int operator-(const Int &amp;)    const;
