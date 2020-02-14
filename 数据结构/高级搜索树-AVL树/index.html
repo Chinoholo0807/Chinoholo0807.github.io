@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/img/icon2.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/img/icon2.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C/C++,数据结构," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="AVL树是平衡二叉搜索树中的一种，在渐进意义下，AVL树可以将高度始终控制在O(log n)  以内，以保证每次查找、插入和删除操作均可以在O(log n)的时间内完成。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高级搜索树-AVL树">
+<meta property="og:url" content="http://yoursite.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%90%9C%E7%B4%A2%E6%A0%91-AVL%E6%A0%91/index.html">
+<meta property="og:site_name" content="海物的博客">
+<meta property="og:description" content="AVL树是平衡二叉搜索树中的一种，在渐进意义下，AVL树可以将高度始终控制在O(log n)  以内，以保证每次查找、插入和删除操作均可以在O(log n)的时间内完成。">
+<meta property="article:published_time" content="2020-02-14T07:52:36.000Z">
+<meta property="article:modified_time" content="2020-02-14T08:52:01.143Z">
+<meta property="article:author" content="海物">
+<meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/数据结构/高级搜索树-AVL树/"/>
+
+
+
+
+
+  <title>高级搜索树-AVL树 | 海物的博客</title>
+  
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">海物的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%90%9C%E7%B4%A2%E6%A0%91-AVL%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="海物">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/img/head2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="海物的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">高级搜索树-AVL树</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-14T15:52:36+08:00">
+                2020-02-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  24
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>AVL树是平衡二叉搜索树中的一种，在渐进意义下，AVL树可以将高度始终控制在O(log n)  以内，以保证每次查找、插入和删除操作均可以在O(log n)的时间内完成。</p>
+<a id="more"></a>
+
+<h3 id="平衡因子"><a href="#平衡因子" class="headerlink" title="平衡因子"></a>平衡因子</h3><p>定义任一结点v的平衡因子（balance factor）为其<strong>左右子树的高度差</strong></p>
+<p>balfac(v)   =   height(v-&gt;lc)   -   height(v-&gt;rc)</p>
+<p>AVL树即平衡因子受限的二叉搜索树—————各结点平衡因子的绝对值不超过1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">inline bool AVLTree&lt;T&gt;::balanced(AVLNodePos(T) &amp;cur) &#123;</span><br><span class="line">	int lh &#x3D; 0, rh &#x3D; 0;</span><br><span class="line">	if (HasLChild(cur))</span><br><span class="line">		lh &#x3D; cur-&gt;lc-&gt;height;</span><br><span class="line">	if (HasRChild(cur))</span><br><span class="line">		rh &#x3D; cur-&gt;rc-&gt;height;</span><br><span class="line">	if ((lh - rh)*(lh - rh) &gt; 1)</span><br><span class="line">		return false;</span><br><span class="line">	return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="AVL树节点和AVL树的定义"><a href="#AVL树节点和AVL树的定义" class="headerlink" title="AVL树节点和AVL树的定义"></a>AVL树节点和AVL树的定义</h3><ol>
+<li>AVL节点AVLNode的定义</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">template&lt;typename T&gt;</span><br><span class="line">struct AVLNode &#123;</span><br><span class="line">public:</span><br><span class="line">	T key;</span><br><span class="line">	int height;</span><br><span class="line">	AVLNodePos(T) pa;&#x2F;&#x2F;pa -- parent</span><br><span class="line">	AVLNodePos(T)  lc;&#x2F;&#x2F;lc -- left child</span><br><span class="line">	AVLNodePos(T)  rc;&#x2F;&#x2F;rc -- right child</span><br><span class="line">	&#x2F;&#x2F;构造函数</span><br><span class="line">	AVLNode(): height(0), pa(NULL), lc(NULL), rc(NULL) &#123;&#125;</span><br><span class="line">	AVLNode(T elem, int height &#x3D; 0, AVLNodePos(T)	 pa &#x3D; NULL, AVLNodePos(T) lc &#x3D; NULL, AVLNodePos(T)	 rc &#x3D; NULL) :</span><br><span class="line">		key(elem), height(height), pa(pa), lc(lc), rc(rc) &#123; &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>AVL树AVLTree的定义如下</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">class AVLTree &#123;</span><br><span class="line">private:</span><br><span class="line">	AVLNodePos(T)	root;		&#x2F;&#x2F;树根</span><br><span class="line">public:</span><br><span class="line">	&#x2F;&#x2F;构造函数和析构函数</span><br><span class="line">	AVLTree():root(NULL)&#123;&#125;</span><br><span class="line">	~AVLTree() &#123;&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;只读函数</span><br><span class="line">	int height() &#123; return Height(root); &#125;</span><br><span class="line">	&#x2F;&#x2F;遍历函数</span><br><span class="line">	void preOrder();	&#x2F;&#x2F;前序遍历</span><br><span class="line">	void inOrder();		&#x2F;&#x2F;中序遍历</span><br><span class="line">	void postOrder();	&#x2F;&#x2F;后序遍历</span><br><span class="line">	&#x2F;&#x2F;操作函数</span><br><span class="line">	AVLNodePos(T)	search(const T	 &amp;key);		&#x2F;&#x2F;查找函数，若存在值为key的节点返回相应节点，若不存在则返回NULL</span><br><span class="line">	AVLNodePos(T) insert(const T &amp;key);		&#x2F;&#x2F;插入值为key的节点</span><br><span class="line">	bool remove(const T &amp;key);	&#x2F;&#x2F;移除值为key的节点</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">	bool balanced(AVLNodePos(T) &amp;cur);	&#x2F;&#x2F;判断cur节点是否平衡</span><br><span class="line">	void upDataHeight(AVLNodePos(T) &amp;cur);	&#x2F;&#x2F;更新节点cur的高度</span><br><span class="line">	void preOrder(AVLNodePos(T) &amp;cur);		&#x2F;&#x2F;以cur节点为root进行前序遍历</span><br><span class="line">	void inOrder(AVLNodePos(T) &amp;cur);		&#x2F;&#x2F;以cur节点为root进行中序遍历</span><br><span class="line">	void postOrder(AVLNodePos(T) &amp;cur);	&#x2F;&#x2F;以cur节点为root进行后序遍历</span><br><span class="line">	AVLNodePos(T) searchIn(const T &amp; key, AVLNodePos(T) cur, AVLNodePos(T)&amp; hot);	&#x2F;&#x2F;以cur节点为root查找值为key的节点，hot为返回节点的父节点</span><br><span class="line">	AVLNodePos(T)	tallerChild(AVLNodePos(T) &amp;g);	&#x2F;&#x2F;返回g高度更高的孩子</span><br><span class="line">	AVLNodePos(T) connect34(AVLNodePos(T) a, AVLNodePos(T) b, AVLNodePos(T) c,	&#x2F;&#x2F;根据 &quot;3&quot;+&quot;4&quot;法则对子树进行调整</span><br><span class="line">		AVLNodePos(T) T0, AVLNodePos(T) T1, AVLNodePos(T) T2, AVLNodePos(T) T3);</span><br><span class="line">	AVLNodePos(T)	adjustNode(AVLNodePos(T)&amp; cur);	&#x2F;&#x2F;调整失衡节点cur,返回调整后得到局部子树的root，并将调整后子树接入原树</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="失衡调整"><a href="#失衡调整" class="headerlink" title="失衡调整"></a>失衡调整</h3><p>AVL树和常规二叉搜索树一样也支持插入、删除等动态修改操作，但是经过这类操作之后节点的高度可能发生变化，以至于不再满足AVL树的条件。为此要定义相关使得搜索树平衡的调整算法。只需在每次动态操作后利用balanced()函数判断当前节点是否平衡，在找到第一个失衡节点g后，找到g高度更高的孩子p和p高度更高的孩子s这三个节点，根据相应g，p，s的关系能找到四棵子树T0,T1,T2,T3，利用 3 + 4 重构法则就能统一调整算法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;根据 &quot;3&quot;+&quot;4&quot;法则对子树进行调整</span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">AVLNodePos(T) AVLTree&lt;T&gt;::connect34(</span><br><span class="line">	AVLNodePos(T) a, AVLNodePos(T) b, AVLNodePos(T) c,</span><br><span class="line">	AVLNodePos(T) T0, AVLNodePos(T) T1, AVLNodePos(T) T2, AVLNodePos(T) T3)</span><br><span class="line">&#123;																					&#x2F;&#x2F;最终实现效果如下：</span><br><span class="line">	a-&gt;lc &#x3D; T0;	if (T0)	T0-&gt;pa &#x3D; a;								&#x2F;&#x2F;							b</span><br><span class="line">	a-&gt;rc &#x3D; T1;	if (T1)	T1-&gt;pa &#x3D; a;								&#x2F;&#x2F;						&#x2F;		\ </span><br><span class="line">	c-&gt;lc &#x3D; T2;	if (T2)	T2-&gt;pa &#x3D; c;								&#x2F;&#x2F;                  a				 c</span><br><span class="line">	c-&gt;rc &#x3D; T3;	if (T3)	T3-&gt;pa &#x3D; c;								&#x2F;&#x2F;				&#x2F;		 \		  &#x2F;     \ </span><br><span class="line">	b-&gt;lc &#x3D; a;		b-&gt;rc &#x3D; c;									&#x2F;&#x2F;           T0          T1     T2       T3</span><br><span class="line">	a-&gt;pa &#x3D; b;	c-&gt;pa &#x3D; b;</span><br><span class="line">	b-&gt;pa &#x3D; NULL;</span><br><span class="line">	upDataHeight(a); </span><br><span class="line">	upDataHeight(c); </span><br><span class="line">	upDataHeight(b);	&#x2F;&#x2F;更新高度</span><br><span class="line">	return b;	&#x2F;&#x2F;返回b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;调整失衡节点cur,返回调整后得到局部子树的root，并将调整后子树接入原树</span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">AVLNodePos(T) AVLTree&lt;T&gt;::adjustNode(AVLNodePos(T)	&amp;g) &#123;</span><br><span class="line">	&#x2F;&#x2F;一旦发现失衡	找到g，p，s 三个节点				&#x2F;&#x2F;g --grandfa</span><br><span class="line">	AVLNodePos(T)  p &#x3D; tallerChild(g);	&#x2F;&#x2F;p --parent</span><br><span class="line">	AVLNodePos(T)  s &#x3D; tallerChild(p);		&#x2F;&#x2F;s --son</span><br><span class="line">	AVLNodePos(T)	gg &#x3D; g-&gt;pa;	&#x2F;&#x2F;gg -- g&#39;s parent</span><br><span class="line">	if (IsLChild(s) &amp;&amp; IsLChild(p))		&#x2F;&#x2F;left -- left </span><br><span class="line">		g &#x3D; connect34(s, p, g, s-&gt;lc, s-&gt;rc, p-&gt;rc, g-&gt;rc);</span><br><span class="line">	else if (IsRChild(s) &amp;&amp; IsLChild(p))	&#x2F;&#x2F;right -- left</span><br><span class="line">		g &#x3D; connect34(p, s, g, p-&gt;lc, s-&gt;lc, s-&gt;rc, g-&gt;rc);</span><br><span class="line">	else if (IsRChild(s) &amp;&amp; IsRChild(p))	&#x2F;&#x2F;right -- right</span><br><span class="line">		g &#x3D; connect34(g, p, s, g-&gt;lc, p-&gt;lc, s-&gt;lc, s-&gt;rc);</span><br><span class="line">	else if (IsLChild(s) &amp;&amp; IsRChild(p))	&#x2F;&#x2F;left -- left</span><br><span class="line">		g &#x3D; connect34(g, s, p, g-&gt;lc, s-&gt;lc, s-&gt;rc, p-&gt;rc);</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;将调整后子树接回原树</span><br><span class="line">	if (!gg)		root &#x3D; g;&#x2F;&#x2F;	gg为NULL说明g为root，更新root</span><br><span class="line">	else &#123;	&#x2F;&#x2F;连接gg和 g</span><br><span class="line">		if (gg-&gt;key &gt; g-&gt;key) &#123;&#x2F;&#x2F;作为左子树接入</span><br><span class="line">			gg-&gt;lc &#x3D; g;</span><br><span class="line">			g-&gt;pa &#x3D; gg;</span><br><span class="line">		&#125;</span><br><span class="line">		else &#123;&#x2F;&#x2F;作为右子树接入</span><br><span class="line">			gg-&gt;rc &#x3D; g;</span><br><span class="line">			g-&gt;pa &#x3D; gg;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	upDataHeight(gg);&#x2F;&#x2F;g的高度已经在connect34时更新，故更新连接g后的gg高度</span><br><span class="line">	return g;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="插入和删除操作"><a href="#插入和删除操作" class="headerlink" title="插入和删除操作"></a>插入和删除操作</h3><p>插入和删除操作同搜索二叉树一样，只是每一次都要节点检查是否平衡，如果失衡则进行调整</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;AVLNodePos(T) searchIn(const T &amp; key, AVLNodePos(T) cur, AVLNodePos(T)&amp; hot);以cur节点为root查找值为key的节点，hot为返回节点的父节点</span><br><span class="line">&#x2F;&#x2F;插入值为key的节点</span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">AVLNodePos(T) AVLTree&lt;T&gt;::insert(const T &amp; key)</span><br><span class="line">&#123;</span><br><span class="line">	AVLNodePos(T)	cur_pa&#x3D;NULL;</span><br><span class="line">	AVLNodePos(T) x &#x3D; searchIn(key, root, cur_pa);</span><br><span class="line">	if (x)	return x;	&#x2F;&#x2F;已经存在值为key的节点	</span><br><span class="line">	&#x2F;&#x2F;否则确认key不存在</span><br><span class="line">	if (!root)</span><br><span class="line">		x &#x3D; root &#x3D; new AVLNode&lt;T&gt;(key);</span><br><span class="line">	else &#123;</span><br><span class="line">		&#x2F;&#x2F;连接节点</span><br><span class="line">		x &#x3D; new AVLNode&lt;T&gt;(key,0,cur_pa);</span><br><span class="line">		if (x-&gt;key &gt; cur_pa-&gt;key)</span><br><span class="line">			cur_pa-&gt;rc &#x3D; x;</span><br><span class="line">		else</span><br><span class="line">			cur_pa-&gt;lc &#x3D; x;</span><br><span class="line">		upDataHeight(x);	&#x2F;&#x2F;更新高度</span><br><span class="line">	&#125;</span><br><span class="line">	for (AVLNodePos(T) g &#x3D; cur_pa; g; g &#x3D; g-&gt;pa) &#123;	&#x2F;&#x2F;从	插入节点的父节点开始向上检查</span><br><span class="line">		if (!balanced(g)) &#123;&#x2F;&#x2F;若g失衡</span><br><span class="line">			adjustNode(g);&#x2F;&#x2F;调整以g为root的局部子树</span><br><span class="line">			break;	&#x2F;&#x2F;g复平衡后，局部子树高度必然复原，其祖先亦如此，故调整可到此结束</span><br><span class="line">		&#125;else &#123;&#x2F;&#x2F;否则g平衡</span><br><span class="line">			upDataHeight(g);		&#x2F;&#x2F;更新高度</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return x;	&#x2F;&#x2F;返回新插入节点位置</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;移除值为key的节点</span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">inline bool AVLTree&lt;T&gt;::remove(const T &amp; key)</span><br><span class="line">&#123;</span><br><span class="line">	AVLNodePos(T)	x &#x3D; search(key);</span><br><span class="line">	if (!x)	</span><br><span class="line">		return false;&#x2F;&#x2F;不存在值为key的节点</span><br><span class="line">	AVLNodePos(T)	w &#x3D; x;	&#x2F;&#x2F;w是实际被摘除节点</span><br><span class="line">	if (!HasLChild(x)) &#123;&#x2F;&#x2F;	如果x没有左子树，用右子树代替x</span><br><span class="line">		if (IsRoot(x))</span><br><span class="line">			root &#x3D; x-&gt;rc;</span><br><span class="line">		else &#123;</span><br><span class="line">			if (IsLChild(x))	x-&gt;pa-&gt;lc &#x3D; x-&gt;rc;</span><br><span class="line">			else x-&gt;pa-&gt;rc &#x3D; x-&gt;rc;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	else if (!HasRChild(x)) &#123;&#x2F;&#x2F;如果x没有右子树， 用左子树替代</span><br><span class="line">		if (IsRoot(x))</span><br><span class="line">			root &#x3D; x-&gt;lc;</span><br><span class="line">		else &#123;</span><br><span class="line">			if (IsLChild(x))	x-&gt;pa-&gt;lc &#x3D; x-&gt;lc;</span><br><span class="line">			else x-&gt;pa-&gt;rc &#x3D; x-&gt;lc;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;else &#123;	&#x2F;&#x2F;否则有左右子树</span><br><span class="line">		&#x2F;&#x2F;取w为x的直接后继</span><br><span class="line">		w &#x3D; x-&gt;rc;</span><br><span class="line">		while (HasLChild(w))</span><br><span class="line">			w &#x3D; w-&gt;lc;</span><br><span class="line">		&#x2F;&#x2F;交换数据</span><br><span class="line">		T tmp &#x3D; x-&gt;key;</span><br><span class="line">		x-&gt;key &#x3D; w-&gt;key;</span><br><span class="line">		w-&gt;key &#x3D; tmp;</span><br><span class="line">		if (HasRChild(w)) </span><br><span class="line">			w-&gt;rc-&gt;pa &#x3D; w-&gt;pa;</span><br><span class="line">		if (w-&gt;pa &#x3D;&#x3D; x)		&#x2F;&#x2F; 注意 w为x的右子这种情况   </span><br><span class="line">			x-&gt;rc &#x3D; w-&gt;rc;		</span><br><span class="line">		else</span><br><span class="line">			w-&gt;pa-&gt;lc &#x3D; w-&gt;rc;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">		upDataHeight(w-&gt;pa);</span><br><span class="line">	for (AVLNodePos(T) g &#x3D; w-&gt;pa; g; g &#x3D; g-&gt;pa) &#123;	&#x2F;&#x2F;从succ的父节点开始向上检查</span><br><span class="line">		if (!balanced(g)) &#123;&#x2F;&#x2F;若g失衡</span><br><span class="line">			g&#x3D;adjustNode(g);&#x2F;&#x2F;调整以g为root的局部子树</span><br><span class="line">			&#x2F;&#x2F;不同于插入操作，删除操作造成的失衡可能会传播</span><br><span class="line">		&#125;</span><br><span class="line">		else &#123;&#x2F;&#x2F;否则g平衡</span><br><span class="line">			upDataHeight(g);		&#x2F;&#x2F;更新高度</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	delete w;&#x2F;&#x2F;摘除w</span><br><span class="line">	return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="完整源码"><a href="#完整源码" class="headerlink" title="完整源码"></a>完整源码</h3><p>“AVLTree_Declaration.h” </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;#include&quot;pch.h&quot;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#ifndef  _AVL_TREE_DECLARATION_H</span><br><span class="line">#define  _AVL_TREE_DECLARATION_H</span><br><span class="line"></span><br><span class="line">#define AVLNodePos(T)	AVLNode&lt;T&gt; *</span><br><span class="line">&#x2F;&#x2F;宏定义</span><br><span class="line">#define IsRoot(x)		( !((x)-&gt;pa) )</span><br><span class="line">#define IsLChild(x)	( !(IsRoot(x)	) &amp;&amp; (x)&#x3D;&#x3D;(x)-&gt;pa-&gt;lc)</span><br><span class="line">#define IsRChild(x)	( !(IsRoot(x)	) &amp;&amp; (x)&#x3D;&#x3D;(x)-&gt;pa-&gt;rc)</span><br><span class="line">#define HasLChild(x)	((x)-&gt;lc )</span><br><span class="line">#define HasRChild(x)	((x)-&gt;rc )</span><br><span class="line">#define HasChild(x)		(HasLChild(x) || HasRChild(x))</span><br><span class="line">#define HasBothChild(x)	(HasRChild(x) &amp;&amp; HasLChild(x) )</span><br><span class="line">#define IsLeaf(x)		(! HasChild(x) )</span><br><span class="line">#define Height(x)		( (x)&#x3D;&#x3D;NULL? 0: (x)-&gt;height )	&#x2F;&#x2F;x的高度</span><br><span class="line">&#x2F;&#x2F;AVLNode 定义</span><br><span class="line">template&lt;typename T&gt;    </span><br><span class="line">struct AVLNode &#123;</span><br><span class="line">public:</span><br><span class="line">	T key;</span><br><span class="line">	int height;</span><br><span class="line">	AVLNodePos(T) pa;&#x2F;&#x2F;pa -- parent</span><br><span class="line">	AVLNodePos(T)  lc;&#x2F;&#x2F;lc -- left child</span><br><span class="line">	AVLNodePos(T)  rc;&#x2F;&#x2F;rc -- right child</span><br><span class="line">	&#x2F;&#x2F;构造函数</span><br><span class="line">	AVLNode(): height(0), pa(NULL), lc(NULL), rc(NULL) &#123;&#125;</span><br><span class="line">	AVLNode(T elem, int height &#x3D; 0, AVLNodePos(T)	 pa &#x3D; NULL, AVLNodePos(T) lc &#x3D; NULL, AVLNodePos(T)	 rc &#x3D; NULL) :</span><br><span class="line">		key(elem), height(height), pa(pa), lc(lc), rc(rc) &#123; &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;AVLTree 定义</span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">class AVLTree &#123;</span><br><span class="line">private:</span><br><span class="line">	AVLNodePos(T)	root;		&#x2F;&#x2F;树根</span><br><span class="line">public:</span><br><span class="line">	&#x2F;&#x2F;构造函数和析构函数</span><br><span class="line">	AVLTree():root(NULL)&#123;&#125;</span><br><span class="line">	~AVLTree() &#123;&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;只读函数</span><br><span class="line">	int height() &#123; return Height(root); &#125;</span><br><span class="line">	&#x2F;&#x2F;遍历函数</span><br><span class="line">	void preOrder();	&#x2F;&#x2F;前序遍历</span><br><span class="line">	void inOrder();		&#x2F;&#x2F;中序遍历</span><br><span class="line">	void postOrder();	&#x2F;&#x2F;后序遍历</span><br><span class="line">	&#x2F;&#x2F;操作函数</span><br><span class="line">	AVLNodePos(T)	search(const T	 &amp;key);		&#x2F;&#x2F;查找函数，若存在值为key的节点返回相应节点，若不存在则返回NULL</span><br><span class="line">	AVLNodePos(T) insert(const T &amp;key);		&#x2F;&#x2F;插入值为key的节点</span><br><span class="line">	bool remove(const T &amp;key);	&#x2F;&#x2F;移除值为key的节点</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">	bool balanced(AVLNodePos(T) &amp;cur);	&#x2F;&#x2F;判断cur节点是否平衡</span><br><span class="line">	void upDataHeight(AVLNodePos(T) &amp;cur);	&#x2F;&#x2F;更新节点cur的高度</span><br><span class="line">	void preOrder(AVLNodePos(T) &amp;cur);		&#x2F;&#x2F;以cur节点为root进行前序遍历</span><br><span class="line">	void inOrder(AVLNodePos(T) &amp;cur);		&#x2F;&#x2F;以cur节点为root进行中序遍历</span><br><span class="line">	void postOrder(AVLNodePos(T) &amp;cur);	&#x2F;&#x2F;以cur节点为root进行后序遍历</span><br><span class="line">	AVLNodePos(T) searchIn(const T &amp; key, AVLNodePos(T) cur, AVLNodePos(T)&amp; hot);	&#x2F;&#x2F;以cur节点为root查找值为key的节点，hot为返回节点的父节点</span><br><span class="line">	AVLNodePos(T)	tallerChild(AVLNodePos(T) &amp;g);	&#x2F;&#x2F;返回g高度更高的孩子</span><br><span class="line">	AVLNodePos(T) connect34(AVLNodePos(T) a, AVLNodePos(T) b, AVLNodePos(T) c,	&#x2F;&#x2F;根据 &quot;3&quot;+&quot;4&quot;法则对子树进行调整</span><br><span class="line">		AVLNodePos(T) T0, AVLNodePos(T) T1, AVLNodePos(T) T2, AVLNodePos(T) T3);</span><br><span class="line">	AVLNodePos(T)	adjustNode(AVLNodePos(T)&amp; cur);	&#x2F;&#x2F;调整失衡节点cur,返回调整后得到局部子树的root，并将调整后子树接入原树</span><br><span class="line">&#125;;</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+
+<p>“AVLTree_Define.h”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;具体实现</span><br><span class="line">&#x2F;&#x2F;#include&quot;pch.h&quot;</span><br><span class="line">#include &quot;AVLTree_Declaration.h&quot;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">#ifndef _AVL_TREE_DEFINE_H</span><br><span class="line">#define _AVL_TREE_DEFINE_H</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">inline void AVLTree&lt;T&gt;::preOrder(AVLNodePos(T) &amp; cur)</span><br><span class="line">&#123;</span><br><span class="line">	if (!cur)	return;</span><br><span class="line">	std::cout &lt;&lt; cur-&gt;key &lt;&lt; &quot; &quot;;</span><br><span class="line">	preOrder(cur-&gt;lc);</span><br><span class="line">	preOrder(cur-&gt;rc);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">inline void AVLTree&lt;T&gt;::inOrder(AVLNodePos(T) &amp; cur)</span><br><span class="line">&#123;</span><br><span class="line">	if (!cur)	return;</span><br><span class="line">	inOrder(cur-&gt;lc);</span><br><span class="line">	std::cout &lt;&lt; cur-&gt;key &lt;&lt; &quot; &quot;;</span><br><span class="line">	inOrder(cur-&gt;rc);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">inline void AVLTree&lt;T&gt;::postOrder(AVLNodePos(T)&amp; cur)</span><br><span class="line">&#123;</span><br><span class="line">	if (!cur)	return;</span><br><span class="line">	postOrder(cur-&gt;lc);</span><br><span class="line">	postOrder(cur-&gt;rc);</span><br><span class="line">	std::cout &lt;&lt; cur-&gt;key &lt;&lt; &quot; &quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">inline void AVLTree&lt;T&gt;::preOrder()</span><br><span class="line">&#123;</span><br><span class="line">	preOrder(root);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">inline void AVLTree&lt;T&gt;::inOrder()</span><br><span class="line">&#123;</span><br><span class="line">	inOrder(root);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">inline void AVLTree&lt;T&gt;::postOrder()</span><br><span class="line">&#123;</span><br><span class="line">	postOrder(root);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;判断cur节点是否平衡</span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">inline bool AVLTree&lt;T&gt;::balanced(AVLNodePos(T) &amp;cur) &#123;</span><br><span class="line">	int lh &#x3D; 0, rh &#x3D; 0;</span><br><span class="line">	if (HasLChild(cur))</span><br><span class="line">		lh &#x3D; cur-&gt;lc-&gt;height;</span><br><span class="line">	if (HasRChild(cur))</span><br><span class="line">		rh &#x3D; cur-&gt;rc-&gt;height;</span><br><span class="line">	if ((lh - rh)*(lh - rh) &gt; 1)</span><br><span class="line">		return false;</span><br><span class="line">	return true;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;返回g高度更高的孩子</span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">inline AVLNodePos(T)	AVLTree&lt;T&gt;::tallerChild(AVLNodePos(T) &amp;g) &#123;</span><br><span class="line">	if (HasBothChild(g)) &#123;</span><br><span class="line">		return (g-&gt;lc-&gt;height &gt;&#x3D; g-&gt;rc-&gt;height ? g-&gt;lc : g-&gt;rc);</span><br><span class="line">	&#125;</span><br><span class="line">	else if (HasLChild(g))</span><br><span class="line">		return g-&gt;lc;</span><br><span class="line">	else if (HasRChild(g))</span><br><span class="line">		return g-&gt;rc;</span><br><span class="line">	return NULL;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;更新节点cur的高度</span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">inline void AVLTree&lt;T&gt;::upDataHeight(AVLNodePos(T) &amp;	p)</span><br><span class="line">&#123;</span><br><span class="line">	if (!p)	return;</span><br><span class="line">	int tmp &#x3D; p-&gt;height;</span><br><span class="line">	if (IsLeaf(p))</span><br><span class="line">		p-&gt;height &#x3D; 1;</span><br><span class="line">	else if (HasBothChild(p))</span><br><span class="line">		p-&gt;height &#x3D; (p-&gt;lc-&gt;height &gt; p-&gt;rc-&gt;height) ? p-&gt;lc-&gt;height + 1 : p-&gt;rc-&gt;height + 1;</span><br><span class="line">	else if (HasLChild(p))</span><br><span class="line">		p-&gt;height &#x3D; p-&gt;lc-&gt;height + 1;</span><br><span class="line">	else if (HasRChild(p))</span><br><span class="line">		p-&gt;height &#x3D; p-&gt;rc-&gt;height + 1;</span><br><span class="line"></span><br><span class="line">	return;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;以cur节点为root查找值为key的节点，hot为返回节点的父节点</span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">inline AVLNodePos(T) AVLTree&lt;T&gt;::searchIn(const T &amp; key, AVLNodePos(T) cur, AVLNodePos(T)&amp; hot)</span><br><span class="line">&#123;</span><br><span class="line">	if (!cur || key &#x3D;&#x3D; cur-&gt;key)	return cur;</span><br><span class="line">	hot &#x3D; cur;</span><br><span class="line">	return searchIn(key, (key &lt; cur-&gt;key ? cur-&gt;lc : cur-&gt;rc), hot);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;查找函数，若存在值为key的节点返回相应节点，若不存在则返回NULL</span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">inline AVLNodePos(T) AVLTree&lt;T&gt;::search(const T &amp; key)</span><br><span class="line">&#123;</span><br><span class="line">	AVLNodePos(T) hot &#x3D; NULL;</span><br><span class="line">	return searchIn(key, root, hot);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;根据 &quot;3&quot;+&quot;4&quot;法则对子树进行调整</span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">AVLNodePos(T) AVLTree&lt;T&gt;::connect34(</span><br><span class="line">	AVLNodePos(T) a, AVLNodePos(T) b, AVLNodePos(T) c,</span><br><span class="line">	AVLNodePos(T) T0, AVLNodePos(T) T1, AVLNodePos(T) T2, AVLNodePos(T) T3)</span><br><span class="line">&#123;																					&#x2F;&#x2F;最终实现效果如下：</span><br><span class="line">	a-&gt;lc &#x3D; T0;	if (T0)	T0-&gt;pa &#x3D; a;								&#x2F;&#x2F;							b</span><br><span class="line">	a-&gt;rc &#x3D; T1;	if (T1)	T1-&gt;pa &#x3D; a;								&#x2F;&#x2F;						&#x2F;		\ </span><br><span class="line">	c-&gt;lc &#x3D; T2;	if (T2)	T2-&gt;pa &#x3D; c;								&#x2F;&#x2F;                  a				 c</span><br><span class="line">	c-&gt;rc &#x3D; T3;	if (T3)	T3-&gt;pa &#x3D; c;								&#x2F;&#x2F;				&#x2F;		 \		  &#x2F;     \ </span><br><span class="line">	b-&gt;lc &#x3D; a;		b-&gt;rc &#x3D; c;									&#x2F;&#x2F;             T0        T1      T2      T3</span><br><span class="line">	a-&gt;pa &#x3D; b;	c-&gt;pa &#x3D; b;</span><br><span class="line">	b-&gt;pa &#x3D; NULL;</span><br><span class="line">	upDataHeight(a); </span><br><span class="line">	upDataHeight(c); </span><br><span class="line">	upDataHeight(b);	&#x2F;&#x2F;更新高度</span><br><span class="line">	return b;	&#x2F;&#x2F;返回b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;调整失衡节点cur,返回调整后得到局部子树的root，并将调整后子树接入原树</span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">AVLNodePos(T) AVLTree&lt;T&gt;::adjustNode(AVLNodePos(T)	&amp;g) &#123;</span><br><span class="line">	&#x2F;&#x2F;一旦发现失衡	找到g，p，s 三个节点				&#x2F;&#x2F;g --grandfa</span><br><span class="line">	AVLNodePos(T)  p &#x3D; tallerChild(g);	&#x2F;&#x2F;p --parent</span><br><span class="line">	AVLNodePos(T)  s &#x3D; tallerChild(p);		&#x2F;&#x2F;s --son</span><br><span class="line">	AVLNodePos(T)	gg &#x3D; g-&gt;pa;	&#x2F;&#x2F;gg -- g&#39;s parent</span><br><span class="line">	if (IsLChild(s) &amp;&amp; IsLChild(p))		&#x2F;&#x2F;left -- left </span><br><span class="line">		g &#x3D; connect34(s, p, g, s-&gt;lc, s-&gt;rc, p-&gt;rc, g-&gt;rc);</span><br><span class="line">	else if (IsRChild(s) &amp;&amp; IsLChild(p))	&#x2F;&#x2F;right -- left</span><br><span class="line">		g &#x3D; connect34(p, s, g, p-&gt;lc, s-&gt;lc, s-&gt;rc, g-&gt;rc);</span><br><span class="line">	else if (IsRChild(s) &amp;&amp; IsRChild(p))	&#x2F;&#x2F;right -- right</span><br><span class="line">		g &#x3D; connect34(g, p, s, g-&gt;lc, p-&gt;lc, s-&gt;lc, s-&gt;rc);</span><br><span class="line">	else if (IsLChild(s) &amp;&amp; IsRChild(p))	&#x2F;&#x2F;left -- left</span><br><span class="line">		g &#x3D; connect34(g, s, p, g-&gt;lc, s-&gt;lc, s-&gt;rc, p-&gt;rc);</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;将调整后子树接回原树</span><br><span class="line">	if (!gg)		root &#x3D; g;&#x2F;&#x2F;	gg为NULL说明g为root，更新root</span><br><span class="line">	else &#123;	&#x2F;&#x2F;连接gg和 g</span><br><span class="line">		if (gg-&gt;key &gt; g-&gt;key) &#123;&#x2F;&#x2F;作为左子树接入</span><br><span class="line">			gg-&gt;lc &#x3D; g;</span><br><span class="line">			g-&gt;pa &#x3D; gg;</span><br><span class="line">		&#125;</span><br><span class="line">		else &#123;&#x2F;&#x2F;作为右子树接入</span><br><span class="line">			gg-&gt;rc &#x3D; g;</span><br><span class="line">			g-&gt;pa &#x3D; gg;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	upDataHeight(gg);&#x2F;&#x2F;g的高度已经在connect34时更新，故更新连接g后的gg高度</span><br><span class="line">	return g;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;插入值为key的节点</span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">AVLNodePos(T) AVLTree&lt;T&gt;::insert(const T &amp; key)</span><br><span class="line">&#123;</span><br><span class="line">	AVLNodePos(T)	cur_pa&#x3D;NULL;</span><br><span class="line">	AVLNodePos(T) x &#x3D; searchIn(key, root, cur_pa);</span><br><span class="line">	if (x)	return x;	&#x2F;&#x2F;已经存在值为key的节点	</span><br><span class="line">	&#x2F;&#x2F;否则确认key不存在</span><br><span class="line">	if (!root)</span><br><span class="line">		x &#x3D; root &#x3D; new AVLNode&lt;T&gt;(key);</span><br><span class="line">	else &#123;</span><br><span class="line">		&#x2F;&#x2F;连接节点</span><br><span class="line">		x &#x3D; new AVLNode&lt;T&gt;(key,0,cur_pa);</span><br><span class="line">		if (x-&gt;key &gt; cur_pa-&gt;key)</span><br><span class="line">			cur_pa-&gt;rc &#x3D; x;</span><br><span class="line">		else</span><br><span class="line">			cur_pa-&gt;lc &#x3D; x;</span><br><span class="line">		upDataHeight(x);	&#x2F;&#x2F;更新高度</span><br><span class="line">	&#125;</span><br><span class="line">	for (AVLNodePos(T) g &#x3D; cur_pa; g; g &#x3D; g-&gt;pa) &#123;	&#x2F;&#x2F;从	插入节点的父节点开始向上检查</span><br><span class="line">		if (!balanced(g)) &#123;&#x2F;&#x2F;若g失衡</span><br><span class="line">			adjustNode(g);&#x2F;&#x2F;调整以g为root的局部子树</span><br><span class="line">			break;	&#x2F;&#x2F;g复平衡后，局部子树高度必然复原，其祖先亦如此，故调整可到此结束</span><br><span class="line">		&#125;else &#123;&#x2F;&#x2F;否则g平衡</span><br><span class="line">			upDataHeight(g);		&#x2F;&#x2F;更新高度</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return x;	&#x2F;&#x2F;返回新插入节点位置</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;删除值为key的节点</span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">inline bool AVLTree&lt;T&gt;::remove(const T &amp; key)</span><br><span class="line">&#123;</span><br><span class="line">	AVLNodePos(T)	x &#x3D; search(key);</span><br><span class="line">	if (!x)	</span><br><span class="line">		return false;&#x2F;&#x2F;不存在值为key的节点</span><br><span class="line">	AVLNodePos(T)	w &#x3D; x;	&#x2F;&#x2F;w是实际被摘除节点</span><br><span class="line">	if (!HasLChild(x)) &#123;&#x2F;&#x2F;	如果x没有左子树，用右子树代替x</span><br><span class="line">		if (IsRoot(x))</span><br><span class="line">			root &#x3D; x-&gt;rc;</span><br><span class="line">		else &#123;</span><br><span class="line">			if (IsLChild(x))	x-&gt;pa-&gt;lc &#x3D; x-&gt;rc;</span><br><span class="line">			else x-&gt;pa-&gt;rc &#x3D; x-&gt;rc;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	else if (!HasRChild(x)) &#123;&#x2F;&#x2F;如果x没有右子树， 用左子树替代</span><br><span class="line">		if (IsRoot(x))</span><br><span class="line">			root &#x3D; x-&gt;lc;</span><br><span class="line">		else &#123;</span><br><span class="line">			if (IsLChild(x))	x-&gt;pa-&gt;lc &#x3D; x-&gt;lc;</span><br><span class="line">			else x-&gt;pa-&gt;rc &#x3D; x-&gt;lc;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;else &#123;	&#x2F;&#x2F;否则有左右子树</span><br><span class="line">		&#x2F;&#x2F;取w为x的直接后继</span><br><span class="line">		w &#x3D; x-&gt;rc;</span><br><span class="line">		while (HasLChild(w))</span><br><span class="line">			w &#x3D; w-&gt;lc;</span><br><span class="line">		&#x2F;&#x2F;交换数据</span><br><span class="line">		T tmp &#x3D; x-&gt;key;</span><br><span class="line">		x-&gt;key &#x3D; w-&gt;key;</span><br><span class="line">		w-&gt;key &#x3D; tmp;</span><br><span class="line">		if (HasRChild(w)) </span><br><span class="line">			w-&gt;rc-&gt;pa &#x3D; w-&gt;pa;</span><br><span class="line">		if (w-&gt;pa &#x3D;&#x3D; x)		&#x2F;&#x2F; 注意 w为x的右子这种情况   </span><br><span class="line">			x-&gt;rc &#x3D; w-&gt;rc;		</span><br><span class="line">		else</span><br><span class="line">			w-&gt;pa-&gt;lc &#x3D; w-&gt;rc;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">		upDataHeight(w-&gt;pa);</span><br><span class="line">	for (AVLNodePos(T) g &#x3D; w-&gt;pa; g; g &#x3D; g-&gt;pa) &#123;	&#x2F;&#x2F;从succ的父节点开始向上检查</span><br><span class="line">		if (!balanced(g)) &#123;&#x2F;&#x2F;若g失衡</span><br><span class="line">			g&#x3D;adjustNode(g);&#x2F;&#x2F;调整以g为root的局部子树</span><br><span class="line">			&#x2F;&#x2F;不同于插入操作，删除操作造成的失衡可能会传播</span><br><span class="line">		&#125;</span><br><span class="line">		else &#123;&#x2F;&#x2F;否则g平衡</span><br><span class="line">			upDataHeight(g);		&#x2F;&#x2F;更新高度</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	delete w;&#x2F;&#x2F;摘除w</span><br><span class="line">	return true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+
+<p>“main.cpp”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; main.cpp : 此文件包含 &quot;main&quot; 函数。程序执行将在此处开始并结束。</span><br><span class="line">&#x2F;&#x2F;</span><br><span class="line"></span><br><span class="line">#include &quot;pch.h&quot;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include&quot;AVLTree_Define.h&quot;</span><br><span class="line">#include&quot;AVLTree_Declaration.h&quot;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	AVLTree&lt;int&gt; t;</span><br><span class="line">	int n;</span><br><span class="line">	cout &lt;&lt; &quot;insert number:&quot;;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	cout &lt;&lt; &quot;insert:&quot; ;</span><br><span class="line">	for (int i &#x3D; 0; i &lt; n; i++) &#123;</span><br><span class="line">		int tmp;</span><br><span class="line">		cin &gt;&gt; tmp;</span><br><span class="line">		t.insert(tmp);</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; &quot;PreOrder:&quot;;</span><br><span class="line">	t.preOrder();</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;InOrder:&quot;;</span><br><span class="line">	t.inOrder();</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;PostOrder:&quot;;</span><br><span class="line">	t.postOrder();</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;remove number:&quot;;</span><br><span class="line">	cin &gt;&gt;n;</span><br><span class="line">	cout &lt;&lt; &quot;remove:&quot;;</span><br><span class="line">	for (int i &#x3D; 0; i &lt; n; i++) &#123;</span><br><span class="line">		int tmp;</span><br><span class="line">		cin &gt;&gt; tmp;</span><br><span class="line">		t.remove(tmp);</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; &quot;PreOrder:&quot;;</span><br><span class="line">	t.preOrder();</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;InOrder:&quot;;</span><br><span class="line">	t.inOrder();</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;PostOrder:&quot;;</span><br><span class="line">	t.postOrder();</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    海物
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%90%9C%E7%B4%A2%E6%A0%91-AVL%E6%A0%91/" title="高级搜索树-AVL树">http://yoursite.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%90%9C%E7%B4%A2%E6%A0%91-AVL%E6%A0%91/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C-C/" rel="tag"><i class="fa fa-tag"></i> C/C++</a>
+          
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"><i class="fa fa-tag"></i> 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/C-C/C++%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/" rel="next" title="C++ 运算符重载">
+                <i class="fa fa-chevron-left"></i> C++ 运算符重载
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/img/head2.jpg"
+                alt="海物" />
+            
+              <p class="site-author-name" itemprop="name">海物</p>
+              <p class="site-description motion-element" itemprop="description">把春光归还给疏疏篱落，把慵慵沉迷归还给过去的我</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7Carchive">
+              
+                  
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  
+                 
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:likamylike@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#平衡因子"><span class="nav-number">1.</span> <span class="nav-text">平衡因子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AVL树节点和AVL树的定义"><span class="nav-number">2.</span> <span class="nav-text">AVL树节点和AVL树的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#失衡调整"><span class="nav-number">3.</span> <span class="nav-text">失衡调整</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入和删除操作"><span class="nav-number">4.</span> <span class="nav-text">插入和删除操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完整源码"><span class="nav-number">5.</span> <span class="nav-text">完整源码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">海物</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script src="/live2d-widget/autoload.js"></script>
+  
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+</body>
+</html>
