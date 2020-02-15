@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>高级搜索树-伸展树(Splay Tree)</title>
-    <url>/uncategorized/%E9%AB%98%E7%BA%A7%E6%90%9C%E7%B4%A2%E6%A0%91-%E4%BC%B8%E5%B1%95%E6%A0%91SplayTree/</url>
+    <url>/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%90%9C%E7%B4%A2%E6%A0%91-%E4%BC%B8%E5%B1%95%E6%A0%91SplayTree/</url>
     <content><![CDATA[<p>与AVL树一样，伸展树(Splay Tree)也是平衡二叉搜索树的一致，伸展树无需时刻都严格保持整棵树的平衡，也不需要对基本的二叉树结点做任何附加改动，能够保持分摊意义下的高效率。</p>
 <a id="more"></a>
 <h3 id="局部性"><a href="#局部性" class="headerlink" title="局部性"></a>局部性</h3><p>通常在任意数据结构的生命期内，执行不同操作的概率往往极不均衡，且各操作之间具有极强的关联性，比如<strong>数据局部性</strong>，所谓数据局部性包括：</p>
@@ -44,6 +44,13 @@
 
 <p>“main.cpp”</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#x2F;&#x2F; SplayTree.cpp : 此文件包含 &quot;main&quot; 函数。程序执行将在此处开始并结束。</span><br><span class="line">&#x2F;&#x2F;</span><br><span class="line"></span><br><span class="line">#include &quot;pch.h&quot;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include&quot;SplayTree_Declaration.h&quot;</span><br><span class="line">#include&quot;SplayTree_Define.h&quot;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	SplayTree&lt;int&gt; t;</span><br><span class="line">	int n;</span><br><span class="line">	cout &lt;&lt; &quot;insert number:&quot;;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	cout &lt;&lt; &quot;insert:&quot;;</span><br><span class="line">	for (int i &#x3D; 0; i &lt; n; i++) &#123;</span><br><span class="line">		int tmp;</span><br><span class="line">		cin &gt;&gt; tmp;</span><br><span class="line">		t.insert(tmp);</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; &quot;PreOrder:&quot;;</span><br><span class="line">	t.preOrder();</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;InOrder:&quot;;</span><br><span class="line">	t.inOrder();</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;PostOrder:&quot;;</span><br><span class="line">	t.postOrder();</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;remove number:&quot;;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	cout &lt;&lt; &quot;remove:&quot;;</span><br><span class="line">	for (int i &#x3D; 0; i &lt; n; i++) &#123;</span><br><span class="line">		int tmp;</span><br><span class="line">		cin &gt;&gt; tmp;</span><br><span class="line">		t.remove(tmp);</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; &quot;PreOrder:&quot;;</span><br><span class="line">	t.preOrder();</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;InOrder:&quot;;</span><br><span class="line">	t.inOrder();</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;PostOrder:&quot;;</span><br><span class="line">	t.postOrder();</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	return 0;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>C/C++</tag>
+        <tag>数据结构</tag>
+      </tags>
   </entry>
   <entry>
     <title>高级搜索树-AVL树</title>
