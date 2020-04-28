@@ -92,13 +92,11 @@
 <meta property="og:url" content="http://yoursite.com/csapp/csapp%E7%AC%AC%E5%85%AD%E7%AB%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="海物的博客">
 <meta property="og:description" content="存储器结构围绕着局部性：具有良好局部性的程序倾向于访问邻近的数据项集合。">
-<meta property="og:image" content="http://i.imgur.com/uZ6hZf5.png">
 <meta property="article:published_time" content="2020-04-19T07:43:32.000Z">
-<meta property="article:modified_time" content="2020-04-28T07:43:15.392Z">
+<meta property="article:modified_time" content="2020-04-28T07:48:27.578Z">
 <meta property="article:author" content="海物">
 <meta property="article:tag" content="csapp">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://i.imgur.com/uZ6hZf5.png">
 
 
 
@@ -489,35 +487,11 @@
 <p>一旦发生不命中，就要<strong>驱逐/替换</strong>某个<strong>牺牲块</strong>。</p>
 <hr>
 <h2 id="高速缓存存储器"><a href="#高速缓存存储器" class="headerlink" title="高速缓存存储器"></a>高速缓存存储器</h2><hr>
-<p><img src="http://i.imgur.com/uZ6hZf5.png" alt></p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>S</td>
-<td>2^s组数</td>
-</tr>
-<tr>
-<td>E</td>
-<td>每组的行数</td>
-</tr>
-<tr>
-<td>B=2^b</td>
-<td>块大小（字节)</td>
-</tr>
-<tr>
-<td>m=log2(M)</td>
-<td>物理地址位数</td>
-</tr>
-<tr>
-<td>C=SxExB</td>
-<td>容量大小</td>
-</tr>
-</tbody></table>
+<p>S:2^s组数</p>
+<p>E:每组的行数</p>
+<p>B=2^b:块大小（字节)</p>
+<p>m=log2(M):物理地址位数</p>
+<p>C=SxExB:容量大小</p>
 <p><strong>抖动(thrash)</strong>:高速缓存反复地加载和驱逐相同的高速缓存块的组。</p>
 <p>采用中间的位做索引： 相邻的块能够映射到不同的高速缓存行中，使得对高速缓冲使用效率提高。</p>
 <hr>
