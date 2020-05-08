@@ -346,7 +346,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  1.2k
                 </span>
               
 
@@ -362,7 +362,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  4
                 </span>
               
             </div>
@@ -443,6 +443,10 @@
 <li>缺页处理程序页面调入新的页面，并更新相应PTE</li>
 <li>缺页处理程序返回原来进程，再次执行导致缺页的命令。CPU将该虚拟地址重新发给MMU，此时MMU会检测到标志位为1，执行上述4以后操作。</li>
 </ol>
+<h4 id="使用TLB（翻译后备缓冲器）加速地址翻译"><a href="#使用TLB（翻译后备缓冲器）加速地址翻译" class="headerlink" title="使用TLB（翻译后备缓冲器）加速地址翻译"></a>使用TLB（翻译后备缓冲器）加速地址翻译</h4><h4 id="多级页表"><a href="#多级页表" class="headerlink" title="多级页表"></a>多级页表</h4><ul>
+<li>节省空间，若一级页表中的一个PTE为空，则相应的二级页表根本不存在，这代表着巨大的潜在节约，因为对于一个典型的程序，4GB的虚拟地址空间的大部分都是未分配的。</li>
+<li>只有一级页表才需要在主存中，虚拟内存系统可以在需要时创建、页面调入或调出二级页表，这减少了主存的压力。<br><img src="https://cdn.u1.huluxia.com/g3/M03/65/3D/wKgBOV6pQbiAQ0jZAAJ389Lz_-s553.png" alt></li>
+</ul>
 
           
         
@@ -1831,7 +1835,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  6
                 </span>
               
             </div>
